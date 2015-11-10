@@ -6,6 +6,7 @@ import (
 	"github.com/AlekSi/zabbix-sender"
 	"github.com/hpcloud/tail"
 	"net"
+	"os"
 	"regexp"
 )
 
@@ -16,10 +17,17 @@ var (
 	zabbixkey        = flag.String("zabbix_key", "", "-zabbix_key zabbix item key")
 	zabbixserverhost = flag.String("zabbix_server_host", "", "-zabbix_server_host zabbix server host")
 	zabbixserverport = flag.String("zabbix_server_port", "10051", "-zabbix_server_port zabbix server port")
+	version          = flag.Bool("version", false, "-version print version")
+	Version          string
 )
 
 func main() {
 	flag.Parse()
+
+	if *version {
+		fmt.Println("version", Version)
+		os.Exit(1)
+	}
 
 	zbx_serv_conn_str := *zabbixserverhost + ":" + *zabbixserverport
 
@@ -45,4 +53,3 @@ func main() {
 		fmt.Println(err)
 	}
 }
-
