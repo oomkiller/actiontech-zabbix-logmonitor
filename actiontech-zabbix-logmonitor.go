@@ -42,16 +42,16 @@ func main() {
 	}
 	for line := range t.Lines {
 		matched, err := regexp.MatchString(*regexpstring, line.Text)
+		if nil != err {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 		if matched == true {
 			//fmt.Println(line.Time, line.Text)
 			data := map[string]interface{}{*zabbixkey: line.Text}
 			di := zabbix_sender.MakeDataItems(data, *zabbixhost)
 			addr, _ := net.ResolveTCPAddr("tcp", zbx_serv_conn_str)
 			zabbix_sender.Send(addr, di)
-		}
-		if nil != err {
-			fmt.Println(err)
-			os.Exit(1)
 		}
 	}
 }
