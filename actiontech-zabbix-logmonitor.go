@@ -36,6 +36,10 @@ func main() {
 		ReOpen:   true,
 		Poll:     true,
 		Location: &tail.SeekInfo{0, 2}})
+	if nil != err {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 	for line := range t.Lines {
 		matched, err := regexp.MatchString(*regexpstring, line.Text)
 		if matched == true {
@@ -47,9 +51,7 @@ func main() {
 		}
 		if nil != err {
 			fmt.Println(err)
+			os.Exit(1)
 		}
-	}
-	if nil != err {
-		fmt.Println(err)
 	}
 }
