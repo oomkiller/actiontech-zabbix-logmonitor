@@ -8,3 +8,6 @@
 -    	-zabbix_key zabbix item key
 -    	-zabbix_server_host zabbix server host
 -    	-zabbix_server_port zabbix server port (default "10051")
+
+##if you need send the result to open-falcon
+-    	-open_falcon true send to open-falcon (default false)
